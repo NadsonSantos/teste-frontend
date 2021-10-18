@@ -1,0 +1,45 @@
+<main class="page">
+  <div class="header">
+    <app-header-search (value)="onFilter($event)"></app-header-search>
+  </div>
+
+  <div class="page__container">
+    <div class="page__form">
+      <app-form [user]="editDev" (onSubmit)="onSubmit($event)"></app-form>
+
+    </div>
+  
+    <ul class="page__list">
+      <li class="list__item" *ngFor="let dev of listDev; i as index">
+        <img [src]="dev.avatar" alt="logo" class="dev__img">
+        <h5 class="dev__title">
+          {{dev.name}}
+        </h5>
+        <p class="dev__text">
+          {{dev.city}}
+        </p>
+        <p>
+          {{dev.technology}}
+        </p>
+
+        <div class="dev__actions">
+          <a [href]="dev.gitProfile" target="_blank" class="actions__link" *ngIf="dev.gitProfile">Acessar GitHub</a>
+          <div class="actions__icons">
+            <a (click)="onEditDev(dev)" class="icon__edit">
+              <fa-icon [icon]="faEdit"></fa-icon>
+            </a>
+            <a (click)="deleteDev(index)" class="icon__trash">
+              <fa-icon [icon]="faClose"></fa-icon>
+            </a>
+          </div>
+        </div>
+      </li>
+
+      <li class="list__notFound" *ngIf="listDev.length === 0">
+        <h3>
+          Nenhum Dev encontrado.
+        </h3>
+      </li>
+    </ul>
+  </div>
+</main>
